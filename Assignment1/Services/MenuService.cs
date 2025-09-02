@@ -1,6 +1,7 @@
-﻿namespace Assignment1.Services;
+﻿
+namespace Assignment1.Services;
 
 internal class MenuService
 {
-    
+  
 }
