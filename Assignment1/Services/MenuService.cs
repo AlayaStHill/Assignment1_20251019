@@ -1,36 +1,31 @@
-﻿
-
-namespace Assignment1.Services;
+﻿namespace Assignment1.Services;
 
 internal class MenuService
 {
+    
     internal static void MainMenu()
     {
         Console.WriteLine("=== Välkommen till Produkthanteraren ===");
+        List<string> options = ["Lägg till ny produkt", "Visa produktlista", "Avsluta"];
+        UIService.ShowList(options);
+        Console.WriteLine(""); 
+        int optionChoice = UIService.GetNumberInput("Välj ett alternativ: ");
 
-        do
-        {
-            Console.WriteLine("1. Lägg till ny produkt");
-            Console.WriteLine("2. Visa produktlista");
-            Console.WriteLine("3. Avsluta");
-            Console.WriteLine("");
-            Console.WriteLine("Välj ett alternativ: ");
-            string option = Console.ReadLine();
+        //switch (optionChoice)
+        //{
+        //    case 1:
+        //        ProductService.AddNewProduct();
+        //        break;
+        //    case 2:
+        //        ProductService.ShowProductList();
+        //        break;
+        //    case 3:
+        //        Environment.Exit(3);
+        //        break;
+        //    default:
+        //        break;
 
-            if (string.IsNullOrWhiteSpace(option) || )
-            {
-                Console.WriteLine("Ogiltigt val");
-                continue;
-            }
-
-
-            switch ()
-
-
-
-
-        } while (true);
-
+        //}
 
     }
 }
