@@ -42,7 +42,7 @@ internal class UIService
             }
             else
             {
-                return userInput;
+                return userInput.Trim();
             }
         }
     }
@@ -61,6 +61,13 @@ internal class UIService
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine(errorMessage);
         Console.ForegroundColor = ConsoleColor.White;
+        Console.WriteLine("");
+    }
+
+    internal static void PrintMessage(string message)
+    {
+        Console.WriteLine("");
+        Console.WriteLine(message);
         Console.WriteLine("");
     }
 
