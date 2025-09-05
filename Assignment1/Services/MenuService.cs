@@ -1,23 +1,24 @@
 ﻿namespace Assignment1.Services;
-
+// I menuservice har man allt som rör visa-meny och de val/metoder som menyalternativen anger. UIService är samma som MenuService.
+// Allt som rör användaren direkt ska skrivas där och input-output
 internal class MenuService
 {
-    
-    internal static void MainMenu()
+
+    internal static void DisplayMainMenu()
     {
-        Console.WriteLine("=== Välkommen till Produkthanteraren ===");
+        UIService.NewPage("=== Välkommen till Produkthanteraren ===");
         List<string> options = ["Lägg till ny produkt", "Visa produktlista", "Avsluta"];
         UIService.ShowList(options);
-        Console.WriteLine(""); 
+      
         int optionChoice = UIService.GetNumberInput("Välj ett alternativ: ");
 
         //switch (optionChoice)
         //{
         //    case 1:
-        //        ProductService.AddNewProduct();
+        //        AddNewProduct();
         //        break;
         //    case 2:
-        //        ProductService.ShowProductList();
+        //        ShowProductList();
         //        break;
         //    case 3:
         //        Environment.Exit(3);
@@ -26,6 +27,9 @@ internal class MenuService
         //        break;
 
         //}
-
     }
+  
+
+
+
 }

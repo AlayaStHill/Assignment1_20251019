@@ -1,6 +1,4 @@
-﻿
-
-namespace Assignment1.Services;
+﻿namespace Assignment1.Services;
 
 internal class UIService
 {
@@ -13,7 +11,7 @@ internal class UIService
 
             if (!success || convertedInput < min || convertedInput > max)
             {
-                Console.WriteLine("Ogiltig inmatning. Ange ett tal");
+                PrintErrorMessage("Ogiltig inmatning. Ange ett tal");
             }
             else
             {
@@ -24,27 +22,50 @@ internal class UIService
 
     internal static void ShowList(List<string> options)
     {
-        for(int i = 0; i < options.Count; i++)
+        for (int i = 0; i < options.Count; i++)
         {
             Console.WriteLine($"{i + 1}. {options[i]}");
         }
+        Console.WriteLine("");
     }
 
     internal static string UserInput(string message)
     {
         while (true)
         {
-            Console.Write(message + " ");
+            Console.Write(message);
             string userInput = Console.ReadLine()!;
 
             if (string.IsNullOrWhiteSpace(userInput))
             {
-                Console.WriteLine("Ogiltig inmatning. Inmatningen får ej vara tom.");
+                PrintErrorMessage("Ogiltig inmatning. Inmatningen får ej vara tom.");
             }
             else
             {
                 return userInput;
             }
         }
+    }
+
+
+    internal static void NewPage(string message)
+    {
+        Console.Clear();
+        Console.WriteLine(message);
+        Console.WriteLine("");
+    }
+
+    internal static void PrintErrorMessage(string errorMessage)
+    {
+        Console.WriteLine("");
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine(errorMessage);
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.WriteLine("");
+    }
+
+    internal static void WaitForUserRespons()
+    {
+        Console.ReadKey();
     }
 }

@@ -1,0 +1,11 @@
+Tanke:
+UIService
+Interaktionslogik: skriva ut text, läsa in svar, kontrollera inmatning.
+
+
+MenuService
+Programflödet: visa rätt meny, avgöra vad som händer beroende på användarens val, anropa rätt tjänst (produktservice).
+
+
+ProductService
+Affärslogik: lägga till produkter, spara, hämta...
