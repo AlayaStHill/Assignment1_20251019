@@ -21,10 +21,13 @@ internal class MenuService
             case 2:
                 DisplayProductlist();
                 break;
-            //case 3:
-            //    break;
-            //default:
-            //    break;
+            case 3:
+                Environment.Exit(0);
+                break;
+            default:
+                UIService.PrintErrorMessage("Ogiltigt val, försök igen...");
+                DisplayMainMenu();
+                break;
 
         }
     }
