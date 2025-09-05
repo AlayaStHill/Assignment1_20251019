@@ -4,35 +4,42 @@ namespace Assignment1.Services;
 internal class MenuService
 {
     private static ProductService _productService = new();
+    private bool _isRunning = true;
 
     public void DisplayMainMenu()
     {
-        UIService.NewPage("=== Välkommen till Produkthanteraren ===");
-        List<string> options = ["Lägg till ny produkt", "Visa produktlista", "Avsluta"];
-        UIService.ShowList(options);
-      
-        int optionChoice = UIService.GetNumberInput("Välj ett alternativ: ", min: 1, max: options.Count);
-
-        switch (optionChoice)
+        
+        do
         {
-            case 1:
-                DisplayAddNewProduct();
-                break;
-            case 2:
-                DisplayProductlist();
-                break;
-            case 3:
-                Environment.Exit(0);
-                break;
-            default:
-                UIService.PrintErrorMessage("Ogiltigt val, försök igen...");
-                DisplayMainMenu();
-                break;
+            UIService.NewPage("=== Välkommen till Produkthanteraren ===");
+            List<string> options = ["Lägg till ny produkt", "Visa produktlista", "Avsluta"];
+            UIService.ShowList(options);
 
-        }
+            int optionChoice = UIService.GetNumberInput("Välj ett alternativ: ", min: 1, max: options.Count);
+
+            switch (optionChoice)
+            {
+                case 1:
+                    DisplayAddNewProduct();
+                    break;
+                case 2:
+                    DisplayProductList();
+                    break;
+                case 3:
+                    _isRunning = false;
+                    break;
+                default:
+                    UIService.PrintErrorMessage("Ogiltigt val, försök igen...");
+                    DisplayMainMenu();
+                    break;
+
+            }
+
+        } while (_isRunning);
+    
     }
 
-    private void DisplayProductlist()
+    private void DisplayProductList()
     {
         UIService.NewPage("=== Visa produktlista ===");
 
@@ -40,19 +47,26 @@ internal class MenuService
 
         foreach(Product product in productList)
         {
-            UIService.PrintMessage($"Id: {product.Id} - Namn: {product.Name} - Pris: {product.Price} kr");
+            UIService.PrintMessage($"Namn: {product.Name} - Pris: {product.Price} kr");
         }
 
         if(productList.Count() == 0)
         {
             UIService.PrintErrorMessage("Listan är tom");
         }
+        else
+        {
+            UIService.AddSpacing();
+        }    
+        UIService.PrintMessage("Tryck på varfri tangent för att återgå till menyn...");
+        UIService.WaitForUserRespons();
 
     }
 
     private void DisplayAddNewProduct()
     {
         UIService.NewPage("=== Lägg till ny produkt ===");
+        
 
         Product product = new Product
         {
@@ -62,7 +76,8 @@ internal class MenuService
 
         _productService.CreateProduct(product);
 
-        UIService.PrintMessage($"Produkten {product.Name} lades till (Id: {product.Id})\n Tryck på varfri tangent för att återgå till menyn...");
+        UIService.AddSpacing();
+        UIService.PrintMessage($"Produkten {product.Name} lades till.\nTryck på varfri tangent för att återgå till menyn...");
         UIService.WaitForUserRespons();
     }
 }

@@ -52,27 +52,30 @@ internal class UIService
     {
         Console.Clear();
         Console.WriteLine(message);
-        Console.WriteLine("");
+        AddSpacing();
     }
 
     internal static void PrintErrorMessage(string errorMessage)
     {
-        Console.WriteLine("");
+        AddSpacing();
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine(errorMessage);
         Console.ForegroundColor = ConsoleColor.White;
-        Console.WriteLine("");
+        AddSpacing();
     }
 
     internal static void PrintMessage(string message)
     {
-        Console.WriteLine("");
         Console.WriteLine(message);
-        Console.WriteLine("");
     }
 
     internal static void WaitForUserRespons()
     {
         Console.ReadKey();
+    }
+
+    internal static void AddSpacing()
+    {
+        Console.WriteLine("");
     }
 }
