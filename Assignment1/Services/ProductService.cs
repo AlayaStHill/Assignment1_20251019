@@ -1,7 +1,15 @@
-﻿namespace Assignment1.Services;
+﻿using Assignment1.Models;
+
+namespace Assignment1.Services;
 
 internal class ProductService
 {
-    
+    private static List<Product> _productList = new();
+
+    public void CreateProduct(Product product)
+    {
+        product.Id = Guid.NewGuid().ToString();
+        _productList.Add(product);
+    }
  
 }

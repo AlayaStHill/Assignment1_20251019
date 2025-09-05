@@ -1,3 +1,4 @@
 ﻿using Assignment1.Services;
 
-MenuService.DisplayMainMenu();
+MenuService menuService = new MenuService();
+menuService.DisplayMainMenu();
