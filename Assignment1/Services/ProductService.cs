@@ -2,7 +2,7 @@
 
 namespace Assignment1.Services;
 
-internal class ProductService
+public class ProductService
 {
     private static List<Product> _productList = new();
 

@@ -1,8 +1,8 @@
 ﻿namespace Assignment1.Services;
 
-internal class UIService
+public class UIService
 {
-    internal static int GetNumberInput(string message, int min = 1, int max = int.MaxValue)
+    public static int GetNumberInput(string message, int min = 1, int max = int.MaxValue)
     {
         while (true)
         {
@@ -20,7 +20,7 @@ internal class UIService
         }
     }
 
-    internal static void ShowList(List<string> options)
+    public static void ShowList(List<string> options)
     {
         for (int i = 0; i < options.Count; i++)
         {
@@ -29,7 +29,7 @@ internal class UIService
         Console.WriteLine("");
     }
 
-    internal static string UserInput(string message)
+    public static string UserInput(string message)
     {
         while (true)
         {
@@ -48,31 +48,34 @@ internal class UIService
     }
 
 
-    internal static void NewPage(string message)
+    public static void NewPage(string message)
     {
         Console.Clear();
         Console.WriteLine(message);
-        Console.WriteLine("");
+        AddSpacing();
     }
 
-    internal static void PrintErrorMessage(string errorMessage)
+    public static void PrintErrorMessage(string errorMessage)
     {
-        Console.WriteLine("");
+        AddSpacing();
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine(errorMessage);
         Console.ForegroundColor = ConsoleColor.White;
-        Console.WriteLine("");
+        AddSpacing();
     }
 
-    internal static void PrintMessage(string message)
+    public static void PrintMessage(string message)
     {
-        Console.WriteLine("");
         Console.WriteLine(message);
-        Console.WriteLine("");
     }
 
-    internal static void WaitForUserRespons()
+    public static void WaitForUserRespons()
     {
         Console.ReadKey();
+    }
+
+    public static void AddSpacing()
+    {
+        Console.WriteLine("");
     }
 }
