@@ -1,5 +1,4 @@
-﻿
-using Assignment1.Models;
+﻿using Assignment1.Models;
 
 namespace Assignment1.Services;
 internal class MenuService
@@ -19,16 +18,33 @@ internal class MenuService
             case 1:
                 DisplayAddNewProduct();
                 break;
-                //    case 2:
-                //        ShowProductList();
-                //        break;
-                //    case 3:
-                //        Environment.Exit(3);
-                //        break;
-                //    default:
-                //        break;
+            case 2:
+                DisplayProductlist();
+                break;
+            //case 3:
+            //    break;
+            //default:
+            //    break;
 
         }
+    }
+
+    private void DisplayProductlist()
+    {
+        UIService.NewPage("=== Visa produktlista ===");
+
+        IEnumerable<Product> productList = _productService.GetAll();
+
+        foreach(Product product in productList)
+        {
+            UIService.PrintMessage($"Id: {product.Id} - Namn: {product.Name} - Pris: {product.Price} kr");
+        }
+
+        if(productList.Count() == 0)
+        {
+            UIService.PrintErrorMessage("Listan är tom");
+        }
+
     }
 
     private void DisplayAddNewProduct()
@@ -40,8 +56,6 @@ internal class MenuService
             Name = UIService.UserInput("Ange namn: "),
             Price = UIService.GetNumberInput("Ange pris: ")
         };
-
-       
 
         _productService.CreateProduct(product);
 

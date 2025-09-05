@@ -11,5 +11,10 @@ internal class ProductService
         product.Id = Guid.NewGuid().ToString();
         _productList.Add(product);
     }
+
+    public IEnumerable<Product> GetAll()
+    {
+        return _productList;
+    }
  
 }
