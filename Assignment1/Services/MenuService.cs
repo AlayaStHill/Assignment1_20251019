@@ -1,14 +1,13 @@
 ﻿using Assignment1.Models;
 
 namespace Assignment1.Services;
-internal class MenuService
+public class MenuService
 {
     private static ProductService _productService = new();
     private bool _isRunning = true;
 
     public void DisplayMainMenu()
     {
-        
         do
         {
             UIService.NewPage("=== Välkommen till Produkthanteraren ===");
@@ -47,7 +46,7 @@ internal class MenuService
 
         foreach(Product product in productList)
         {
-            UIService.PrintMessage($"Namn: {product.Name} - Pris: {product.Price} kr");
+            UIService.PrintMessage($"Id: {product.Id} - Namn: {product.Name} - Pris: {product.Price} kr");
         }
 
         if(productList.Count() == 0)
