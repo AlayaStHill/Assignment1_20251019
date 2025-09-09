@@ -9,3 +9,6 @@ Programflödet: visa meny, avgöra vad som händer beroende på användarens val, anr
 
 ProductService
 Affärslogik: hantera produkter; lägga till produkter, spara, hämta...
+
+ 
+

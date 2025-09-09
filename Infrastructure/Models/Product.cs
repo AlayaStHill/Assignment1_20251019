@@ -1,4 +1,4 @@
-﻿namespace Assignment1.Models;
+﻿namespace Infrastructure.Models;
 
 public class Product
 {

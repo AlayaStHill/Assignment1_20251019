@@ -1,6 +1,7 @@
-﻿using Assignment1.Models;
+﻿using Infrastructure.Models;
 
-namespace Assignment1.Services;
+namespace Infrastructure.Services;
+
 public class MenuService
 {
     private static ProductService _productService = new();
@@ -35,7 +36,7 @@ public class MenuService
             }
 
         } while (_isRunning);
-    
+
     }
 
     private void DisplayProductList()
@@ -44,19 +45,19 @@ public class MenuService
 
         IEnumerable<Product> productList = _productService.GetAll();
 
-        foreach(Product product in productList)
+        foreach (Product product in productList)
         {
             UIService.PrintMessage($"Id: {product.Id} - Namn: {product.Name} - Pris: {product.Price} kr");
         }
 
-        if(productList.Count() == 0)
+        if (productList.Count() == 0)
         {
             UIService.PrintErrorMessage("Listan är tom");
         }
         else
         {
             UIService.AddSpacing();
-        }    
+        }
         UIService.PrintMessage("Tryck på varfri tangent för att återgå till menyn...");
         UIService.WaitForUserRespons();
 
@@ -65,7 +66,7 @@ public class MenuService
     private void DisplayAddNewProduct()
     {
         UIService.NewPage("=== Lägg till ny produkt ===");
-        
+
 
         Product product = new Product
         {
