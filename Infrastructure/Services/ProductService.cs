@@ -1,6 +1,6 @@
-﻿using Assignment1.Models;
+﻿using Infrastructure.Models;
 
-namespace Assignment1.Services;
+namespace Infrastructure.Services;
 
 public class ProductService
 {
@@ -16,5 +16,4 @@ public class ProductService
     {
         return _productList;
     }
- 
 }

@@ -1,4 +1,4 @@
-﻿namespace Assignment1.Services;
+﻿namespace Infrastructure.Services;
 
 public class UIService
 {
