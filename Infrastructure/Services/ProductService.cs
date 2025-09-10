@@ -2,7 +2,7 @@
 
 namespace Infrastructure.Services;
 
-public class ProductService : IProductService
+public class ProductService
 {
     private static List<Product> _productList = new();
 
