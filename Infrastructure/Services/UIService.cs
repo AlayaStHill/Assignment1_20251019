@@ -1,8 +1,8 @@
 ﻿namespace Infrastructure.Services;
 
-public class UIService
+public class UIService : IUIService
 {
-    public static int GetNumberInput(string message, int min = 1, int max = int.MaxValue)
+    public int GetNumberInput(string message, int min = 1, int max = int.MaxValue)
     {
         while (true)
         {
@@ -20,7 +20,7 @@ public class UIService
         }
     }
 
-    public static void ShowList(List<string> options)
+    public void ShowList(List<string> options)
     {
         for (int i = 0; i < options.Count; i++)
         {
@@ -29,7 +29,7 @@ public class UIService
         Console.WriteLine("");
     }
 
-    public static string UserInput(string message)
+    public string UserInput(string message)
     {
         while (true)
         {
@@ -48,14 +48,14 @@ public class UIService
     }
 
 
-    public static void NewPage(string message)
+    public void NewPage(string message)
     {
         Console.Clear();
         Console.WriteLine(message);
         AddSpacing();
     }
 
-    public static void PrintErrorMessage(string errorMessage)
+    public void PrintErrorMessage(string errorMessage)
     {
         AddSpacing();
         Console.ForegroundColor = ConsoleColor.Red;
@@ -64,17 +64,17 @@ public class UIService
         AddSpacing();
     }
 
-    public static void PrintMessage(string message)
+    public void PrintMessage(string message)
     {
         Console.WriteLine(message);
     }
 
-    public static void WaitForUserRespons()
+    public void WaitForUserRespons()
     {
         Console.ReadKey();
     }
 
-    public static void AddSpacing()
+    public void AddSpacing()
     {
         Console.WriteLine("");
     }

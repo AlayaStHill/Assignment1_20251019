@@ -1,4 +1,8 @@
 ﻿using Infrastructure.Services;
 
-MenuService menuService = new MenuService();
+IUIService uIService = new UIService();
+IProductService iProductService = new ProductService();
+IMenuService menuService = new MenuService(uIService, iProductService);
+
+
 menuService.DisplayMainMenu();

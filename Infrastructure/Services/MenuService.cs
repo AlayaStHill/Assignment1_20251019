@@ -2,22 +2,24 @@
 
 namespace Infrastructure.Services;
 
-public class MenuService
+public class MenuService(IUIService uIService, IProductService productService) : IMenuService
 {
-    private static ProductService _productService = new();
-    private bool _isRunning = true;
+    private readonly IUIService _uIService = uIService;
+    private readonly IProductService _productService = productService;
+
+    private bool _isApplicationRunning = true;
 
     public void DisplayMainMenu()
     {
         do
         {
-            UIService.NewPage("=== Välkommen till Produkthanteraren ===");
-            List<string> options = ["Lägg till ny produkt", "Visa produktlista", "Avsluta"];
-            UIService.ShowList(options);
+            _uIService.NewPage("=== Välkommen till Produkthanteraren ===");
+            List<string> menuOptions = ["Lägg till ny produkt", "Visa produktlista", "Avsluta"];
+            _uIService.ShowList(menuOptions);
 
-            int optionChoice = UIService.GetNumberInput("Välj ett alternativ: ", min: 1, max: options.Count);
+            int selectedOption = _uIService.GetNumberInput("Välj ett alternativ: ", min: 1, max: menuOptions.Count);
 
-            switch (optionChoice)
+            switch (selectedOption)
             {
                 case 1:
                     DisplayAddNewProduct();
@@ -26,58 +28,58 @@ public class MenuService
                     DisplayProductList();
                     break;
                 case 3:
-                    _isRunning = false;
+                    _isApplicationRunning = false;
                     break;
                 default:
-                    UIService.PrintErrorMessage("Ogiltigt val, försök igen...");
+                    _uIService.PrintErrorMessage("Ogiltigt val, försök igen...");
                     DisplayMainMenu();
                     break;
 
             }
 
-        } while (_isRunning);
+        } while (_isApplicationRunning);
 
     }
 
     private void DisplayProductList()
     {
-        UIService.NewPage("=== Visa produktlista ===");
+        _uIService.NewPage("=== Visa produktlista ===");
 
         IEnumerable<Product> productList = _productService.GetAll();
 
         foreach (Product product in productList)
         {
-            UIService.PrintMessage($"Id: {product.Id} - Namn: {product.Name} - Pris: {product.Price} kr");
+            _uIService.PrintMessage($"Id: {product.Id} - Namn: {product.Name} - Pris: {product.Price} kr");
         }
 
         if (productList.Count() == 0)
         {
-            UIService.PrintErrorMessage("Listan är tom");
+            _uIService.PrintErrorMessage("Listan är tom");
         }
         else
         {
-            UIService.AddSpacing();
+            _uIService.AddSpacing();
         }
-        UIService.PrintMessage("Tryck på varfri tangent för att återgå till menyn...");
-        UIService.WaitForUserRespons();
+        _uIService.PrintMessage("Tryck på varfri tangent för att återgå till menyn...");
+        _uIService.WaitForUserRespons();
 
     }
 
     private void DisplayAddNewProduct()
     {
-        UIService.NewPage("=== Lägg till ny produkt ===");
+        _uIService.NewPage("=== Lägg till ny produkt ===");
 
 
-        Product product = new Product
+        Product newProduct = new Product
         {
-            Name = UIService.UserInput("Ange namn: "),
-            Price = UIService.GetNumberInput("Ange pris: ")
+            Name = _uIService.UserInput("Ange namn: "),
+            Price = _uIService.GetNumberInput("Ange pris: ")
         };
 
-        _productService.CreateProduct(product);
+        _productService.CreateProduct(newProduct);
 
-        UIService.AddSpacing();
-        UIService.PrintMessage($"Produkten {product.Name} lades till.\nTryck på varfri tangent för att återgå till menyn...");
-        UIService.WaitForUserRespons();
+        _uIService.AddSpacing();
+        _uIService.PrintMessage($"Produkten {newProduct.Name} lades till.\nTryck på varfri tangent för att återgå till menyn...");
+        _uIService.WaitForUserRespons();
     }
 }
