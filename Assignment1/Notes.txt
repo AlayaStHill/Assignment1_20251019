@@ -10,5 +10,11 @@ Programflödet: visa meny, avgöra vad som händer beroende på användarens val, anr
 ProductService
 Affärslogik: hantera produkter; lägga till produkter, spara, hämta...
 
+JsonFileService 
+Datainlagring: läsa/spara listan av produkter till en fil.
+
  
 
+ Structure
+ *Fråga* skapar jag en class library = Infrastructure. Som har två folders: Business och data. 
+ Eller ska bara Infrastructure innehålla det som Business och Data vanligtvis innehåller?
