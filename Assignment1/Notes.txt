@@ -10,11 +10,24 @@ Programflödet: visa meny, avgöra vad som händer beroende på användarens val, anr
 ProductService
 Affärslogik: hantera produkter; lägga till produkter, spara, hämta...
 
-JsonFileService 
+JsonFileRepository 
 Datainlagring: läsa/spara listan av produkter till en fil.
 
  
+ För att uppnå kravet för godkänt krävs följande:
 
- Structure
- *Fråga* skapar jag en class library = Infrastructure. Som har två folders: Business och data. 
- Eller ska bara Infrastructure innehålla det som Business och Data vanligtvis innehåller?
+Applikationen kan vara en konsolapplikation.
+Skapa en klass som heter Product.
+Skapa en lista av produkter (List<Product>) i programmet för att lagra produkterna.
+Implementera en funktion för att lägga till en ny produkt till listan. Användaren ska kunna ange produktens namn och pris, och produkten ska automatiskt få ett Globalt Unikt ID.
+Implementera en funktion som visar alla produkter i listan med ID, namn och pris.
+Implementera en funktion som läser in produkter från en tidigare sparad textfil och lägger till dem i listan.
+Implementera en funktion som sparar alla produkter i listan till en textfil. Filen ska innehålla produktinformation som finns i listan och vara sparat i .json-format.
+Skapa enhetstester för att säkerställa att en produkt läggs till i lista samt att listan populeras med produkter när en fil har lästs in.
+Ja du får skriva allt i Program.cs om du så vill. Men jag rekommenderar att du använder dig av olika services för att genomföra detta.
+Du behöver använda dig av Git/GitHub men du behöver endast använda dig av main/master och inte göra olika branches.
+
+För att inte behöva commit en branch som inte är färdig:
+Klicka på pilen bredvid "Commit All" --> "Stash All (--include-untracked)"
+För att få tillbaka stashat:
+Högerklicka på stashat --> "Pop All As Unstaged"
