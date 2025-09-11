@@ -1,8 +1,12 @@
-﻿using Infrastructure.Services;
+﻿using Infrastructure.Models;
+using Infrastructure.Services;
 
 IUIService uIService = new UIService();
-IProductService iProductService = new ProductService();
+IFileRepository fileRepository = new JsonFileRepository("sökväg");
+IProductService iProductService = new ProductService(fileRepository);
+
 IMenuService menuService = new MenuService(uIService, iProductService);
 
 
 menuService.DisplayMainMenu();
+

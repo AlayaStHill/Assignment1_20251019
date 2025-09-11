@@ -1,6 +1,7 @@
 ﻿namespace Infrastructure.Services
 {
-    public interface IFileService
+    public interface IFileRepository
     {
+        
     }
 }
