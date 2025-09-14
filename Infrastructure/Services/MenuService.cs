@@ -3,7 +3,7 @@ using Infrastructure.Models;
 
 namespace Infrastructure.Services;
 
-public class MenuService(IUIService uIService, IProductService productService) : IMenuService
+public class MenuService(IUIService uIService, IProductService productService) 
 {
     private readonly IUIService _uIService = uIService;
     private readonly IProductService _productService = productService;
@@ -51,7 +51,7 @@ public class MenuService(IUIService uIService, IProductService productService) :
     {
         _uIService.NewPage("=== Visa produktlista ===");
 
-        IEnumerable<Product> productList = _productService.GetAllProducts();
+        IEnumerable<Product> productList = _productService.GetProductList();
 
         foreach (Product product in productList)
         {
@@ -79,10 +79,10 @@ public class MenuService(IUIService uIService, IProductService productService) :
         Product newProduct = new Product
         {
             Name = _uIService.UserInput("Ange namn: "),
-            Price = _uIService.GetNumberInput("Ange pris: ")
+            Price = _uIService.GetNumberInput("Ange pris: ", min: 1)
         };
 
-        _productService.CreateProduct(newProduct);
+        bool success = _productService.AddToProductList(newProduct);
 
         _uIService.AddSpacing();
         _uIService.PrintMessage($"Produkten {newProduct.Name} lades till.\nTryck på varfri tangent för att återgå till menyn...");

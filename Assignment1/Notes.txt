@@ -37,3 +37,25 @@ Högerklicka på stashat --> "Pop All As Unstaged"
 Ta bort IMenuService
 Lägg MenuService i presentationlagret
 Addera ProductManager och bryt ut metoder
+
+
+
+
+  /*
+    Använd ingen Console.WriteLine i ProductService
+    Gör nullchecken i UIService men såhär kan man göra också:
+
+  public string CreateProduct(Product product)
+    {
+        if (product == null)
+        {
+            return "Invalid object provided"; etc...
+        }
+
+        var json = _fileRepository.ConvertToJson(product);
+        product.Id = Guid.NewGuid().ToString();
+        _productList.Add(product);
+    
+    Man kan behöva göra om till rätt format. Antingen låter man fileService ta hand om formatändringen eller productService
+        _fileRepository.SaveToFile(json); 
+    */

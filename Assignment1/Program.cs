@@ -6,13 +6,13 @@ using Microsoft.Extensions.Hosting;
 
 var builder = Host.CreateApplicationBuilder();
 
-builder.Services.AddTransient<IFileRepository>(serviceProvider => new JsonFileRepository(@"sökväg"));
-builder.Services.AddTransient<IMenuService, MenuService>();
-builder.Services.AddTransient<IProductService, ProductService>();
-builder.Services.AddTransient<IUIService, UIService>();
+builder.Services.AddSingleton<IFileRepository>(serviceProvider => new JsonFileRepository(@"sökväg"));
+builder.Services.AddSingleton<MenuService>();
+builder.Services.AddSingleton<IProductService, ProductService>();
+builder.Services.AddSingleton<IUIService, UIService>();
 
 using var app = builder.Build();
 
-var menuService = app.Services.GetRequiredService<IMenuService>();
+var menuService = app.Services.GetRequiredService<MenuService>();
 
 menuService.Start();
