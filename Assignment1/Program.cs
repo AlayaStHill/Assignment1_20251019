@@ -1,4 +1,5 @@
-﻿using Infrastructure.Models;
+﻿using Infrastructure.Interfaces;
+using Infrastructure.Models;
 using Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -14,3 +15,4 @@ using var app = builder.Build();
 
 var menuService = app.Services.GetRequiredService<IMenuService>();
 menuService.Start();
+//ändrat

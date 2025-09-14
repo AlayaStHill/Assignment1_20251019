@@ -31,3 +31,9 @@ För att inte behöva commit en branch som inte är färdig:
 Klicka på pilen bredvid "Commit All" --> "Stash All (--include-untracked)"
 För att få tillbaka stashat:
 Högerklicka på stashat --> "Pop All As Unstaged"
+
+
+
+Ta bort IMenuService
+Lägg MenuService i presentationlagret
+Addera ProductManager och bryt ut metoder

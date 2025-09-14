@@ -1,5 +1,4 @@
-﻿
-namespace Infrastructure.Services
+﻿namespace Infrastructure.Interfaces
 {
     public interface IUIService
     {
