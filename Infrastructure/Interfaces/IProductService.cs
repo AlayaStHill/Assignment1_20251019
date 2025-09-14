@@ -1,10 +1,10 @@
 ﻿using Infrastructure.Models;
 
-namespace Infrastructure.Services
+namespace Infrastructure.Interfaces
 {
     public interface IProductService
     {
         void CreateProduct(Product product);
-        IEnumerable<Product> GetAll();
+        IEnumerable<Product> GetAllProducts();
     }
 }
