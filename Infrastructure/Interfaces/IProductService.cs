@@ -4,7 +4,8 @@ namespace Infrastructure.Interfaces
 {
     public interface IProductService
     {
-        void CreateProduct(Product product);
+        bool AddToList(Product product);
         IEnumerable<Product> GetAllProducts();
+
     }
 }
