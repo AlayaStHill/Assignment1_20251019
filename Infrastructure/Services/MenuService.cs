@@ -1,4 +1,5 @@
-﻿using Infrastructure.Models;
+﻿using Infrastructure.Interfaces;
+using Infrastructure.Models;
 
 namespace Infrastructure.Services;
 
@@ -50,7 +51,7 @@ public class MenuService(IUIService uIService, IProductService productService) :
     {
         _uIService.NewPage("=== Visa produktlista ===");
 
-        IEnumerable<Product> productList = _productService.GetAll();
+        IEnumerable<Product> productList = _productService.GetAllProducts();
 
         foreach (Product product in productList)
         {

@@ -1,4 +1,6 @@
-﻿namespace Infrastructure.Services;
+﻿using Infrastructure.Interfaces;
+
+namespace Infrastructure.Services;
 
 public class UIService : IUIService
 {
