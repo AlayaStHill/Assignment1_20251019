@@ -1,13 +1,17 @@
 ﻿using Infrastructure.Interfaces;
 using Infrastructure.Models;
 using Infrastructure.Services;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
-IUIService uIService = new UIService();
-IFileRepository fileRepository = new JsonFileRepository("sökväg");
-IProductService iProductService = new ProductService(fileRepository);
+var builder = Host.CreateApplicationBuilder();
 
-IMenuService menuService = new MenuService(uIService, iProductService);
+builder.Services.AddTransient<IFileRepository>(serviceProvider => new JsonFileRepository(@"sökväg"));
+builder.Services.AddTransient<IMenuService, MenuService>();
+builder.Services.AddTransient<IProductService, ProductService>();
+builder.Services.AddTransient<IUIService, UIService>();
 
+using var app = builder.Build();
 
-menuService.DisplayMainMenu();
-
+var menuService = app.Services.GetRequiredService<IMenuService>();
+menuService.Start();

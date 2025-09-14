@@ -10,7 +10,12 @@ public class MenuService(IUIService uIService, IProductService productService) :
 
     private bool _isApplicationRunning = true;
 
-    public void DisplayMainMenu()
+    public void Start()
+    {
+        MainMenu();
+    }
+
+    private void MainMenu()
     {
         do
         {
@@ -33,7 +38,7 @@ public class MenuService(IUIService uIService, IProductService productService) :
                     break;
                 default:
                     _uIService.PrintErrorMessage("Ogiltigt val, försök igen...");
-                    DisplayMainMenu();
+                    MainMenu();
                     break;
 
             }
