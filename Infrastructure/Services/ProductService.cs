@@ -8,36 +8,51 @@ public class ProductService(IFileRepository fileRepository) : IProductService
     private readonly IFileRepository _fileRepository = fileRepository;
     private static List<Product> _productList = new();
 
-    public void CreateProduct(Product product)
+    public bool AddToProductList(Product newProduct)
     {
-        product.Id = Guid.NewGuid().ToString();
-        _productList.Add(product);
+        if (newProduct == null)
+            return false;
 
-        //_fileRepository.SaveToFile(JsonSerializer.Serialize(_productList);
+        if (string.IsNullOrWhiteSpace(newProduct.Name))
+            return false;
+
+        if (newProduct.Price <= 0)
+            return false;
+
+        newProduct.Id = Guid.NewGuid().ToString();
+        _productList.Add(newProduct);
+
+        return true;
     }
-    /*
-    Använd ingen Console.WriteLine i ProductService
-    Gör nullchecken i UIService men såhär kan man göra också:
 
-  public string CreateProduct(Product product)
-    {
-        if (product == null)
-        {
-            return "Invalid object provided"; etc...
-        }
-
-        var json = _fileRepository.ConvertToJson(product);
-        product.Id = Guid.NewGuid().ToString();
-        _productList.Add(product);
-    
-    Man kan behöva göra om till rätt format. Antingen låter man fileService ta hand om formatändringen eller productService
-        _fileRepository.SaveToFile(json); 
-    */
-
-    public IEnumerable<Product> GetAllProducts()
+    public IEnumerable<Product> GetProductList()
     {
         return _productList;
     }
 
 
+
+
+    //public Product GetProductById(string id)
+    //{
+    //    throw new NotImplementedException();
+    //    //Lambda first or default. ANvända frågetecken, kan vara tomma?
+    //}
+
+    //public Product GetProductByName(string name)
+    //{
+    //    throw new NotImplementedException();
+    //    //Lambda first or default. ANvända frågetecken, kan vara tomma?
+
+    //}
+
+    //public Product DeleteProduct(Product product)
+    //{
+    //    throw new NotImplementedException();
+    //}
+
+    //public Product UpdateProduct(Product product)
+    //{
+    //    throw new NotImplementedException();
+    //}
 }
