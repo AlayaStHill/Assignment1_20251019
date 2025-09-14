@@ -13,5 +13,5 @@ builder.Services.AddTransient<IUIService, UIService>();
 using var app = builder.Build();
 
 var menuService = app.Services.GetRequiredService<IMenuService>();
+
 menuService.Start();
-//ändrat
