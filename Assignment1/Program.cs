@@ -1,6 +1,6 @@
 ﻿using Infrastructure.Interfaces;
-using Infrastructure.Models;
 using Infrastructure.Services;
+using Infrastructure.Managers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -10,6 +10,7 @@ builder.Services.AddSingleton<IFileRepository>(serviceProvider => new JsonFileRe
 builder.Services.AddSingleton<MenuService>();
 builder.Services.AddSingleton<IProductService, ProductService>();
 builder.Services.AddSingleton<IUIService, UIService>();
+builder.Services.AddSingleton<IProductManager, ProductManager>();
 
 using var app = builder.Build();
 
