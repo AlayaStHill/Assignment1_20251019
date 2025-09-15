@@ -49,6 +49,12 @@ public class UIService : IUIService
         }
     }
 
+    public string? UserInputNullable(string message)
+    {
+        Console.Write(message);
+        return Console.ReadLine();
+    }
+
 
     public void NewPage(string message)
     {

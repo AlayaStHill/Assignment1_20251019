@@ -1,58 +1,39 @@
-﻿using Infrastructure.Interfaces;
+﻿using Infrastructure.Factories;
+using Infrastructure.Interfaces;
 using Infrastructure.Models;
 
 namespace Infrastructure.Services;
 
-public class ProductService(IFileRepository fileRepository) : IProductService
+public class ProductService : IProductService
 {
-    private readonly IFileRepository _fileRepository = fileRepository;
-    private static List<Product> _productList = new();
+    private static List<ProductModel> _productList = new();
 
-    public bool AddToProductList(Product newProduct)
+    public bool AddToProductList(ProductRequest productRequest)
     {
-        if (newProduct == null)
+        if (productRequest == null)
             return false;
 
-        if (string.IsNullOrWhiteSpace(newProduct.Name))
+        if (string.IsNullOrWhiteSpace(productRequest.Name))
             return false;
 
-        if (newProduct.Price <= 0)
+        if (productRequest.Price <= 0)
             return false;
 
-        newProduct.Id = Guid.NewGuid().ToString();
+        ProductModel newProduct = ProductFactory.MapRequestToModel(productRequest);
+
         _productList.Add(newProduct);
 
         return true;
     }
 
-    public IEnumerable<Product> GetProductList()
+    public IEnumerable<ProductModel> GetProductList()
     {
+
         return _productList;
     }
 
-
-
-
-    //public Product GetProductById(string id)
-    //{
-    //    throw new NotImplementedException();
-    //    //Lambda first or default. ANvända frågetecken, kan vara tomma?
-    //}
-
-    //public Product GetProductByName(string name)
-    //{
-    //    throw new NotImplementedException();
-    //    //Lambda first or default. ANvända frågetecken, kan vara tomma?
-
-    //}
-
-    //public Product DeleteProduct(Product product)
-    //{
-    //    throw new NotImplementedException();
-    //}
-
-    //public Product UpdateProduct(Product product)
-    //{
-    //    throw new NotImplementedException();
-    //}
-}
+    public void PopulateProductList(IEnumerable<ProductModel> productListFromFile)
+    {
+        _productList = productListFromFile.ToList();
+    }
+}   

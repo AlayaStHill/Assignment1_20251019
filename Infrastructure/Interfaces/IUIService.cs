@@ -9,6 +9,7 @@
         void PrintMessage(string message);
         void ShowList(List<string> options);
         string UserInput(string message);
+        string? UserInputNullable(string message);
         void WaitForUserRespons();
     }
 }

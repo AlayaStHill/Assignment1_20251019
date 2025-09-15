@@ -4,7 +4,7 @@ namespace Infrastructure.Interfaces;
 
 public interface IProductManager
 {
-    public bool SaveProduct(Product newProduct);
+    public bool SaveProduct(ProductRequest productRequest);
 
-    IEnumerable<Product> GetAllProducts();
+    IEnumerable<ProductResponse> GetAllProducts();
 }

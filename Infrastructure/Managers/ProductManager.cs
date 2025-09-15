@@ -1,4 +1,5 @@
-﻿using Infrastructure.Interfaces;
+﻿using Infrastructure.Factories;
+using Infrastructure.Interfaces;
 using Infrastructure.Models;
 
 namespace Infrastructure.Managers;
@@ -8,23 +9,34 @@ public class ProductManager(IProductService productService, IFileRepository file
     private readonly IProductService _productService = productService;
     private readonly IFileRepository _fileRepository = fileRepository;
 
-    public bool SaveProduct(Product newProduct)
+    public bool SaveProduct(ProductRequest productRequest)
     {
-        bool addSuccess = _productService.AddToProductList(newProduct);
-        if (addSuccess)
+        bool isAdded = _productService.AddToProductList(productRequest);
+        if (isAdded)
         {
-            IEnumerable<Product> productList = _productService.GetProductList();
+            IEnumerable<ProductModel> productList = _productService.GetProductList();
 
-            bool saveResult = _fileRepository.SaveObjectAsJson<IEnumerable<Product>>(productList);
-            return saveResult;
+            bool isSaved = _fileRepository.SaveObjectAsJson<IEnumerable<ProductModel>>(productList);
+            return isSaved;
         }
 
         return false;
     }
 
-    public IEnumerable<Product> GetAllProducts()
+
+    public IEnumerable<ProductResponse> GetAllProducts()
     {
-        IEnumerable<Product> productList = _productService.GetProductList();
-        return productList;
+        IEnumerable<ProductModel>? productListFromFile = _fileRepository.LoadObjectFromJson<IEnumerable<ProductModel>>();
+        if (productListFromFile != null)
+        {
+            _productService.PopulateProductList(productListFromFile);
+        }
+
+        IEnumerable<ProductModel> productListFromMemory = _productService.GetProductList();
+
+        IEnumerable<ProductResponse> responseList = productListFromMemory.Select(productModel => ProductFactory.MapModelToResponse(productModel));
+
+        return responseList;
+
     }
 }

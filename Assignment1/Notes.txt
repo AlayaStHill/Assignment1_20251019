@@ -4,11 +4,13 @@ Interaktionslogik: skriva ut text, läsa in svar, kontrollera inmatning.
 
 
 MenuService
-Programflödet: visa meny, avgöra vad som händer beroende på användarens val, anropa rätt tjänst (produktservice).
+Programflödet: visa meny, avgöra vad som händer beroende på användarens val, anropa rätt tjänst (produktmanager).
 
+ProductManager
+Samordningslogik: fungerar som mellanlager, anropar både ProductService och JsonFileRepository för att hämta och spara produkter.
 
 ProductService
-Affärslogik: hantera produkter; lägga till produkter, spara, hämta...
+Affärslogik: hantera produktlistan i minnet; lägga till nya produkter, hämta listan och ersätta den med innehåll från fil.
 
 JsonFileRepository 
 Datainlagring: läsa/spara listan av produkter till en fil.
@@ -27,35 +29,5 @@ Skapa enhetstester för att säkerställa att en produkt läggs till i lista samt at
 Ja du får skriva allt i Program.cs om du så vill. Men jag rekommenderar att du använder dig av olika services för att genomföra detta.
 Du behöver använda dig av Git/GitHub men du behöver endast använda dig av main/master och inte göra olika branches.
 
-För att inte behöva commit en branch som inte är färdig:
-Klicka på pilen bredvid "Commit All" --> "Stash All (--include-untracked)"
-För att få tillbaka stashat:
-Högerklicka på stashat --> "Pop All As Unstaged"
 
 
-
-Ta bort IMenuService
-Lägg MenuService i presentationlagret
-Addera ProductManager och bryt ut metoder
-
-
-
-
-  /*
-    Använd ingen Console.WriteLine i ProductService
-    Gör nullchecken i UIService men såhär kan man göra också:
-
-  public string CreateProduct(Product product)
-    {
-        if (product == null)
-        {
-            return "Invalid object provided"; etc...
-        }
-
-        var json = _fileRepository.ConvertToJson(product);
-        product.Id = Guid.NewGuid().ToString();
-        _productList.Add(product);
-    
-    Man kan behöva göra om till rätt format. Antingen låter man fileService ta hand om formatändringen eller productService
-        _fileRepository.SaveToFile(json); 
-    */

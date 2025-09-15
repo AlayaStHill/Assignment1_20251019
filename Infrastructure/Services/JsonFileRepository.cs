@@ -51,8 +51,8 @@ public class JsonFileRepository : IFileRepository
         {
             string json = JsonSerializer.Serialize(content, _options);
             
-            bool success = SaveContentToFile(json);
-            return success;
+            bool isSaved = SaveContentToFile(json);
+            return isSaved;
         }
         catch
         {
