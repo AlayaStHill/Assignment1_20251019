@@ -9,6 +9,7 @@ public static class ProductFactory
         return new ProductResponse
         {
             Name = product.Name,
+            Description = product.Description,
             Price = product.Price
         };
     }
@@ -19,6 +20,7 @@ public static class ProductFactory
         {
             Id = Guid.NewGuid().ToString(),
             Name = productRequest.Name,
+            Description = productRequest.Description,
             Price = productRequest.Price
         };
     }

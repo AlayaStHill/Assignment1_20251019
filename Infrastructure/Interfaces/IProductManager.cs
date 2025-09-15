@@ -6,5 +6,5 @@ public interface IProductManager
 {
     public bool SaveProduct(ProductRequest productRequest);
 
-    IEnumerable<ProductModel> GetAllProducts();
+    IEnumerable<ProductResponse> GetAllProducts();
 }

@@ -31,7 +31,7 @@ public class UIService : IUIService
         Console.WriteLine("");
     }
 
-    public string? UserInput(string message, bool allowEmpty = false)
+    public string UserInput(string message)
     {
         while (true)
         {
@@ -40,21 +40,19 @@ public class UIService : IUIService
 
             if (string.IsNullOrWhiteSpace(userInput))
             {
-                if (allowEmpty)
-                {
-                    return null;
-                }
-                else
-                {
-                    PrintErrorMessage("Ogiltig inmatning. Inmatningen får ej vara tom.");
-
-                }
+                PrintErrorMessage("Ogiltig inmatning. Inmatningen får ej vara tom.");
             }
             else
             {
                 return userInput.Trim();
             }
         }
+    }
+
+    public string? UserInputNullable(string message)
+    {
+        Console.Write(message);
+        return Console.ReadLine();
     }
 
 
