@@ -3,6 +3,7 @@ using Infrastructure.Services;
 using Infrastructure.Managers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Assignment1;
 
 var builder = Host.CreateApplicationBuilder();
 

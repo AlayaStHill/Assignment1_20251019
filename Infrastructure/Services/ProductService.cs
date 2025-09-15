@@ -1,4 +1,5 @@
-﻿using Infrastructure.Interfaces;
+﻿using Infrastructure.Factories;
+using Infrastructure.Interfaces;
 using Infrastructure.Models;
 
 namespace Infrastructure.Services;
@@ -6,45 +7,59 @@ namespace Infrastructure.Services;
 public class ProductService(IFileRepository fileRepository) : IProductService
 {
     private readonly IFileRepository _fileRepository = fileRepository;
-    private static List<Product> _productList = new();
+    private static List<ProductModel> _productList = new();
 
-    public bool AddToProductList(Product newProduct)
+    public bool AddToProductList(ProductRequest productRequest)
     {
-        if (newProduct == null)
+        if (productRequest == null)
             return false;
 
-        if (string.IsNullOrWhiteSpace(newProduct.Name))
+        if (string.IsNullOrWhiteSpace(productRequest.Name))
             return false;
 
-        if (newProduct.Price <= 0)
+        if (productRequest.Price <= 0)
             return false;
 
-        newProduct.Id = Guid.NewGuid().ToString();
+        ProductModel newProduct = ProductFactory.MapRequestToModel(productRequest);
+
         _productList.Add(newProduct);
 
         return true;
     }
 
-    public IEnumerable<Product> GetProductList()
+    public IEnumerable<ProductModel> GetProductList()
     {
-        return _productList;
+        IEnumerable<ProductModel>? productList = _fileRepository.LoadObjectFromJson<IEnumerable<ProductModel>>();  
+        if (productList == null)
+        {
+            return new List<ProductModel>(); //returnera null ?? hantera i? Annars retu
+        }
+
+        return productList;
     }
 
 
 
 
-    //public Product GetProductById(string id)
-    //{
-    //    throw new NotImplementedException();
-    //    //Lambda first or default. ANvända frågetecken, kan vara tomma?
-    //}
+    public ProductResponse? GetProductByName(string Name) // göra metod i menuservice, hantera null-värden
+    {
+        IEnumerable<ProductModel>? productList = _fileRepository.LoadObjectFromJson<IEnumerable<ProductModel>>();
+        if (productList == null)
+        {
+            return null;
+        }
 
-    //public Product GetProductByName(string name)
-    //{
-    //    throw new NotImplementedException();
-    //    //Lambda first or default. ANvända frågetecken, kan vara tomma?
+        ProductModel? product = productList.FirstOrDefault(product => product.Name == Name);
+        if (product == null)
+        {
+            return null;
+        }
 
-    //}
+        ProductResponse productResponse = ProductFactory.MapModelToResponse(product);
+
+        return productResponse;
+
+    }
 
     //public Product DeleteProduct(Product product)
     //{
@@ -55,4 +70,4 @@ public class ProductService(IFileRepository fileRepository) : IProductService
     //{
     //    throw new NotImplementedException();
     //}
-}
+}   

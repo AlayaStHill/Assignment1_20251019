@@ -8,7 +8,7 @@
         void PrintErrorMessage(string errorMessage);
         void PrintMessage(string message);
         void ShowList(List<string> options);
-        string UserInput(string message);
+        string? UserInput(string message, bool allowEmpty = false); 
         void WaitForUserRespons();
     }
 }

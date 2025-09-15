@@ -8,23 +8,23 @@ public class ProductManager(IProductService productService, IFileRepository file
     private readonly IProductService _productService = productService;
     private readonly IFileRepository _fileRepository = fileRepository;
 
-    public bool SaveProduct(Product newProduct)
+    public bool SaveProduct(ProductRequest productRequest)
     {
-        bool addSuccess = _productService.AddToProductList(newProduct);
+        bool addSuccess = _productService.AddToProductList(productRequest);
         if (addSuccess)
         {
-            IEnumerable<Product> productList = _productService.GetProductList();
+            IEnumerable<ProductModel> productList = _productService.GetProductList();
 
-            bool saveResult = _fileRepository.SaveObjectAsJson<IEnumerable<Product>>(productList);
+            bool saveResult = _fileRepository.SaveObjectAsJson<IEnumerable<ProductModel>>(productList);
             return saveResult;
         }
 
         return false;
     }
 
-    public IEnumerable<Product> GetAllProducts()
+    public IEnumerable<ProductModel> GetAllProducts()
     {
-        IEnumerable<Product> productList = _productService.GetProductList();
+        IEnumerable<ProductModel> productList = _productService.GetProductList();
         return productList;
     }
 }

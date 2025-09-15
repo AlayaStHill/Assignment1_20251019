@@ -4,8 +4,8 @@ namespace Infrastructure.Interfaces
 {
     public interface IProductService
     {
-        bool AddToProductList(Product newProduct);
-        IEnumerable<Product> GetProductList();
+        bool AddToProductList(ProductRequest productRequest);
+        IEnumerable<ProductModel> GetProductList();
 
         //Product GetProductById(string id);
 
