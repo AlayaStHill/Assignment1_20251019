@@ -66,7 +66,7 @@ public class JsonFileRepository : IFileRepository
             string content = GetContentFromFile();
             if (string.IsNullOrWhiteSpace(content))
             {
-                return default;
+                return default; // vad blir default?
             }
                
 
