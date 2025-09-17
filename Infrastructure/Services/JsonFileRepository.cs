@@ -11,7 +11,7 @@ public class JsonFileRepository : IFileRepository
     public JsonFileRepository(string filePath, JsonSerializerOptions? options = null)
     {
         _filePath = filePath;
-        _options = options ?? new JsonSerializerOptions(JsonSerializerDefaults.Web)
+        _options = options ?? new JsonSerializerOptions(JsonSerializerDefaults.Web) 
         {
             WriteIndented = true
         };
@@ -66,11 +66,11 @@ public class JsonFileRepository : IFileRepository
             string content = GetContentFromFile();
             if (string.IsNullOrWhiteSpace(content))
             {
-                return default; // vad blir default?
+                return default; // blir null om det misslyckas
             }
                
 
-            T? result = JsonSerializer.Deserialize<T>(content);
+            T? result = JsonSerializer.Deserialize<T>(content, _options); 
             return result;
         }
         catch

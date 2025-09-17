@@ -1,16 +1,16 @@
 Tanke:
 UIService
-Interaktionslogik: skriva ut text, läsa in svar, kontrollera inmatning.
+Interaktionslogik: skriva ut text, läsa in svar.
 
 
 MenuService
 Programflödet: visa meny, avgöra vad som händer beroende på användarens val, anropa rätt tjänst (produktmanager).
 
 ProductManager
-Samordningslogik: fungerar som mellanlager, anropar både ProductService och JsonFileRepository för att hämta och spara produkter.
+Samordningslogik: fungerar som mellanlager, anropar både ProductService och JsonFileRepository för att hämta, returnera.
 
 ProductService
-Affärslogik: hantera produktlistan i minnet; lägga till nya produkter, hämta listan och ersätta den med innehåll från fil.
+Affärslogik: hantera produktlistan i minnet; lägga till nya produkter i listan, ersätta den med innehåll från fil.
 
 JsonFileRepository 
 Datainlagring: läsa/spara listan av produkter till en fil.

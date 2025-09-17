@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Factories;
+using Infrastructure.Helpers;
 using Infrastructure.Interfaces;
 using Infrastructure.Models;
 
@@ -10,14 +11,14 @@ public class ProductService : IProductService
 
     public bool AddToProductList(ProductRequest productRequest)
     {
-        if (productRequest == null)
-            return false;
+        if (!ValidateProductRequest.IsValid(productRequest))
+                return false;
 
-        if (string.IsNullOrWhiteSpace(productRequest.Name))
-            return false;
+        if (!ValidateProductName.IsValid(productRequest.Name))
+                return false;
 
-        if (productRequest.Price <= 0)
-            return false;
+        if (!ValidateProductPrice.IsValid(productRequest.Price))
+                return false;
 
         ProductModel newProduct = ProductFactory.MapRequestToModel(productRequest);
 
@@ -35,5 +36,5 @@ public class ProductService : IProductService
     public void PopulateProductList(IEnumerable<ProductModel> productListFromFile)
     {
         _productList = productListFromFile.ToList();
-    }
+    } 
 }   

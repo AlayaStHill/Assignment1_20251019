@@ -37,7 +37,7 @@ public class MenuService(IUIService uIService, IProductManager productManager)
                     _isApplicationRunning = false;
                     break;
                 default:
-                    _uIService.PrintErrorMessage("Ogiltigt val, försök igen...");
+                    _uIService.PrintErrorMessage("Ett oväntat fel inträffade...");
                     break;
 
             }
@@ -63,7 +63,7 @@ public class MenuService(IUIService uIService, IProductManager productManager)
             }
             _uIService.AddSpacing();
         }
-        _uIService.PrintMessage("Tryck på varfri tangent för att återgå till menyn...");
+        _uIService.PrintMessage("Tryck på valfri tangent för att återgå till menyn...");
         _uIService.WaitForUserRespons();
 
     }
@@ -84,7 +84,7 @@ public class MenuService(IUIService uIService, IProductManager productManager)
         if (isSaved)
         {
             _uIService.AddSpacing();
-            _uIService.PrintMessage($"Produkten {productRequest.Name} lades till.\nTryck på varfri tangent för att återgå till menyn...");
+            _uIService.PrintMessage($"Produkten {productRequest.Name} lades till.\nTryck på valfri tangent för att återgå till menyn...");
         }
         else
         {

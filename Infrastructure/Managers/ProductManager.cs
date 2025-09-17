@@ -34,9 +34,7 @@ public class ProductManager(IProductService productService, IFileRepository file
 
         IEnumerable<ProductModel> productListFromMemory = _productService.GetProductList();
 
-        IEnumerable<ProductResponse> responseList = productListFromMemory.Select(productModel => ProductFactory.MapModelToResponse(productModel));
-
-        return responseList;
+        return ProductFactory.MapModelsToResponse(productListFromMemory);
 
     }
 }
