@@ -1,4 +1,5 @@
-﻿using Infrastructure.Interfaces;
+﻿using Infrastructure.Helpers;
+using Infrastructure.Interfaces;
 
 namespace Infrastructure.Services;
 
@@ -8,16 +9,15 @@ public class UIService : IUIService
     {
         while (true)
         {
-            string numberInput = UserInput(message);
-            bool success = int.TryParse(numberInput, out int convertedInput);
+            string userInput = UserInput(message);
 
-            if (!success || convertedInput < min || convertedInput > max)
+            if (!ValidateNumberInput.IsValid(userInput, min, max, out int validNumber))
             {
                 PrintErrorMessage("Ogiltig inmatning. Ange ett tal");
             }
             else
             {
-                return convertedInput;
+                return validNumber;
             }
         }
     }
@@ -38,7 +38,7 @@ public class UIService : IUIService
             Console.Write(message);
             string userInput = Console.ReadLine()!;
 
-            if (string.IsNullOrWhiteSpace(userInput))
+            if (!ValidateStringInput.IsValid(userInput))
             {
                 PrintErrorMessage("Ogiltig inmatning. Inmatningen får ej vara tom.");
             }
