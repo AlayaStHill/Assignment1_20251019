@@ -59,7 +59,8 @@ public class MenuService(IUIService uIService, IProductManager productManager)
         {
             foreach (ProductResponse product in productList)
             {
-                _uIService.PrintMessage($"Namn: {product.Name} - Beskrivning: {product.Description ?? "Ingen beskrivning"} - Pris: {product.Price} kr");
+                // Null-coalescing: value ?? fallback (om value = null)
+                _uIService.PrintMessage($"Namn: {product.ProductName} - Beskrivning: {product.Description ?? "Ingen beskrivning"} - Pris: {product.Price} kr");
             }
             _uIService.AddSpacing();
         }
@@ -75,16 +76,16 @@ public class MenuService(IUIService uIService, IProductManager productManager)
 
         ProductRequest productRequest = new()
         {
-            Name = _uIService.UserInput("Ange namn: "),
+            ProductName = _uIService.UserInput("Ange namn: "),
             Description = _uIService.UserInputNullable("Ange beskrivning (valbar): "), 
             Price = _uIService.GetNumberInput("Ange pris: ", min: 1)
         };
 
-        bool isSaved = _productManager.SaveProduct(productRequest);
-        if (isSaved)
+        ProductServiceResult savedResult = _productManager.SaveProduct(productRequest);
+        if (savedResult.Succeeded)
         {
             _uIService.AddSpacing();
-            _uIService.PrintMessage($"Produkten {productRequest.Name} lades till.\nTryck på valfri tangent för att återgå till menyn...");
+            _uIService.PrintMessage($"Produkten {productRequest.ProductName} lades till.\nTryck på valfri tangent för att återgå till menyn...");
         }
         else
         {

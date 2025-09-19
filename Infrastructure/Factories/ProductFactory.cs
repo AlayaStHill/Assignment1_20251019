@@ -9,7 +9,7 @@ public static class ProductFactory
     {
         return new ProductResponse
         {
-            Name = product.Name,
+            ProductName = product.ProductName, // Måste jag ha Id med här?
             Description = product.Description,
             Price = product.Price,
         };
@@ -26,7 +26,7 @@ public static class ProductFactory
         return new ProductModel
         {
             Id = IdGenerator.GenerateId(),
-            Name = productRequest.Name,
+            ProductName = productRequest.ProductName,
             Description = productRequest.Description,
             Price = productRequest.Price
         };

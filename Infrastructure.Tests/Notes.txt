@@ -1,0 +1,12 @@
+﻿TESTNING ORDNING:
+Enhetstest: testa logik i isolation (en unit). Beroenden mockas = man styr beroendenas beteenden och isolerar på så sätt testningen till den enskilda klassen. 
+
+ProductService: ingen dependency
+
+FileService: mocka IFileRepository - testa FileServices serialisering/deserialisering utan att JsonFileRepository sparar/hämtar från fil
+
+ProductManager: mocka IFileService. Testa spara/hämta produkter.
+
+JsonFileRepository: integrationstest?
+
+

@@ -2,16 +2,16 @@
 
 namespace Infrastructure.Helpers;
 
-public static class ValidateProductRequest
+public static class ProductPriceValidator
 {
-    public static bool IsValid(ProductRequest productRequest)
+    public static bool IsValid(decimal price)
     {
-        if (productRequest == null)
+        if (price <= 0)
         {
             return false;
         }
+
         return true;
+    }
             
-    }  
-   
 }
