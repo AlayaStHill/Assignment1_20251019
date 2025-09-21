@@ -11,7 +11,7 @@ public class UIService : IUIService
         {
             string userInput = UserInput(message);
 
-            if (!ValidateNumberInput.IsValid(userInput, min, max, out int validNumber))
+            if (!NumberInputValidator.IsValid(userInput, min, max, out int validNumber))
             {
                 PrintErrorMessage("Ogiltig inmatning. Ange ett tal");
             }
@@ -38,7 +38,7 @@ public class UIService : IUIService
             Console.Write(message);
             string userInput = Console.ReadLine()!;
 
-            if (!ValidateStringInput.IsValid(userInput))
+            if (!StringInputValidator.IsValid(userInput))
             {
                 PrintErrorMessage("Ogiltig inmatning. Inmatningen får ej vara tom.");
             }
@@ -52,7 +52,9 @@ public class UIService : IUIService
     public string? UserInputNullable(string message)
     {
         Console.Write(message);
-        return Console.ReadLine();
+        string? input = Console.ReadLine();
+        // Ternary operator: condition ? valueReturnedIfTrue : valueReturnedIfFalse
+        return string.IsNullOrWhiteSpace(input) ? null : input;
     }
 
 

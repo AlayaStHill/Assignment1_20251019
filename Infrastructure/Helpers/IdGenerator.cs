@@ -1,6 +1,6 @@
 ﻿namespace Infrastructure.Helpers;
 
-public static class IdGenerator
+public class IdGenerator
 {
     public static string GenerateId()
     {

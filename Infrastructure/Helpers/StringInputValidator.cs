@@ -1,6 +1,6 @@
 ﻿namespace Infrastructure.Helpers;
 
-public static class ValidateStringInput
+public static class StringInputValidator
 {
     public static bool IsValid(string input) 
     {

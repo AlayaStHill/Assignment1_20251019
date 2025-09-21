@@ -2,7 +2,7 @@
 
 namespace Infrastructure.Helpers;
 
-public static class ValidateProductName
+public static class ProductNameValidator // ProductNameValidator istället
 {
     public static bool IsValid(string name)
     {

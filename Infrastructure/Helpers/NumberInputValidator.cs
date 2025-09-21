@@ -1,6 +1,6 @@
 ﻿namespace Infrastructure.Helpers;
 
-public static class ValidateNumberInput
+public static class NumberInputValidator
 {
     public static bool IsValid(string input, int min, int max, out int parsedNumber)
     {

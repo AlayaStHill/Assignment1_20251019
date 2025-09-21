@@ -1,31 +1,18 @@
 ﻿using Infrastructure.Interfaces;
-using System.Text.Json;
 
 namespace Infrastructure.Services;
 
 public class JsonFileRepository : IFileRepository
 {
-    private readonly string _filePath;
-    private readonly JsonSerializerOptions _options;
-
-    public JsonFileRepository(string filePath, JsonSerializerOptions? options = null)
-    {
-        _filePath = filePath;
-        _options = options ?? new JsonSerializerOptions(JsonSerializerDefaults.Web) 
-        {
-            WriteIndented = true
-        };
-    }
-
-    public bool SaveContentToFile(string content) 
+    public bool SaveContentToFile(string filePath, string content) 
     {
         try
         {
-            string? directory = Path.GetDirectoryName(_filePath);
+            string? directory = Path.GetDirectoryName(filePath);
             if (!string.IsNullOrEmpty(directory))
                 Directory.CreateDirectory(directory);
 
-            File.WriteAllText(_filePath, content);
+            File.WriteAllText(filePath, content);
             return true;
         }
         catch
@@ -34,49 +21,16 @@ public class JsonFileRepository : IFileRepository
         }
     }
 
-    public string GetContentFromFile()
+
+    public string GetContentFromFile(string filePath)
     { 
-        if (!File.Exists(_filePath))
+        if (!File.Exists(filePath))
         {
             return string.Empty;
         }
-        string content = File.ReadAllText(_filePath);
-        return content;
+
+        return File.ReadAllText(filePath);
 
     }
 
-    public bool SaveObjectAsJson<T>(T content)
-    {
-        try
-        {
-            string json = JsonSerializer.Serialize(content, _options);
-            
-            bool isSaved = SaveContentToFile(json);
-            return isSaved;
-        }
-        catch
-        {
-            return false;
-        }
-    }
-    public T? LoadObjectFromJson<T>()
-    {
-        try
-        {
-            string content = GetContentFromFile();
-            if (string.IsNullOrWhiteSpace(content))
-            {
-                return default; // blir null om det misslyckas
-            }
-               
-
-            T? result = JsonSerializer.Deserialize<T>(content, _options); 
-            return result;
-        }
-        catch
-        {
-            return default;
-
-        }
-    }
 }

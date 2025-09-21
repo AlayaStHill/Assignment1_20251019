@@ -7,24 +7,36 @@ namespace Infrastructure.Services;
 
 public class ProductService : IProductService
 {
-    private static List<ProductModel> _productList = new();
+    private readonly List<ProductModel> _productList = new();
 
-    public bool AddToProductList(ProductRequest productRequest)
+    public ProductServiceResult AddToProductList(ProductRequest productRequest)
     {
-        if (!ValidateProductRequest.IsValid(productRequest))
-                return false;
+        if (!ProductRequestValidator.IsValid(productRequest))
+            return new ProductServiceResult
+            {
+                Succeeded = false,
+                Error = "ProductRequest är null"
+            };
 
-        if (!ValidateProductName.IsValid(productRequest.Name))
-                return false;
+        if (!ProductNameValidator.IsValid(productRequest.ProductName))
+            return new ProductServiceResult
+            {
+                Succeeded = false,
+                Error = "Name är null eller tomt"
+            };
 
-        if (!ValidateProductPrice.IsValid(productRequest.Price))
-                return false;
+        if (!ProductPriceValidator.IsValid(productRequest.Price))
+            return new ProductServiceResult
+            {
+                Succeeded = false,
+                Error = "Price är 0 eller negativt"
+            };
 
         ProductModel newProduct = ProductFactory.MapRequestToModel(productRequest);
 
         _productList.Add(newProduct);
 
-        return true;
+        return new ProductServiceResult { Succeeded = true }; 
     }
 
     public IEnumerable<ProductModel> GetProductList()
@@ -35,6 +47,7 @@ public class ProductService : IProductService
 
     public void PopulateProductList(IEnumerable<ProductModel> productListFromFile)
     {
-        _productList = productListFromFile.ToList();
+        _productList.Clear();
+        _productList.AddRange(productListFromFile);
     } 
 }   

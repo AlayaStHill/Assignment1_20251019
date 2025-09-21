@@ -1,35 +1,51 @@
 ﻿using Infrastructure.Factories;
 using Infrastructure.Interfaces;
 using Infrastructure.Models;
+using Infrastructure.Services;
 
 namespace Infrastructure.Managers;
 
-public class ProductManager(IProductService productService, IFileRepository fileRepository) : IProductManager
+public class ProductManager(IProductService productService, IFileService fileService) : IProductManager
 {
     private readonly IProductService _productService = productService;
-    private readonly IFileRepository _fileRepository = fileRepository;
+    private readonly IFileService _fileService = fileService;
 
-    public bool SaveProduct(ProductRequest productRequest)
+    public ProductServiceResult SaveProduct(ProductRequest productRequest)
     {
-        bool isAdded = _productService.AddToProductList(productRequest);
-        if (isAdded)
+        ProductServiceResult addResult = _productService.AddToProductList(productRequest);
+        if (addResult.Succeeded)
         {
-            IEnumerable<ProductModel> productList = _productService.GetProductList();
+            IEnumerable<ProductModel> productListFromMemory = _productService.GetProductList();
 
-            bool isSaved = _fileRepository.SaveObjectAsJson<IEnumerable<ProductModel>>(productList);
-            return isSaved;
+            FileServiceResult savedResult = _fileService.SaveObjectAsJson<IEnumerable<ProductModel>>(productListFromMemory); 
+
+            if (savedResult.Succeeded)
+            {
+                return new ProductServiceResult
+                {
+                    Succeeded = true
+                };
+            }
+
+            return new ProductServiceResult
+            {
+                Error = savedResult.Error 
+            };
         }
 
-        return false;
+        return addResult;
     }
 
 
     public IEnumerable<ProductResponse> GetAllProducts()
     {
-        IEnumerable<ProductModel>? productListFromFile = _fileRepository.LoadObjectFromJson<IEnumerable<ProductModel>>();
-        if (productListFromFile != null)
+        // Skickar in: Succeeded, Error, Content och Data
+        FileServiceResult<IEnumerable<ProductModel>> isLoaded = _fileService.LoadObjectFromJson<IEnumerable<ProductModel>>();
+        
+        if (isLoaded.Succeeded)
         {
-            _productService.PopulateProductList(productListFromFile);
+            // Data kan vara null: filen är tom, json ej deserialiserad, catchen. Men då är Succeeded = false. ! eftersom då: Succeeded är true = data --> result
+            _productService.PopulateProductList(isLoaded.Data!); 
         }
 
         IEnumerable<ProductModel> productListFromMemory = _productService.GetProductList();
@@ -38,3 +54,7 @@ public class ProductManager(IProductService productService, IFileRepository file
 
     }
 }
+
+
+
+    

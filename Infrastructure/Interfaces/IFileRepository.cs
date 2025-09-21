@@ -1,8 +1,9 @@
 ﻿namespace Infrastructure.Interfaces
 {
-    public interface IFileRepository
+    public interface IFileRepository 
     {
-        bool SaveObjectAsJson<T>(T content);
-        T? LoadObjectFromJson<T>();
+        bool SaveContentToFile(string filePath, string content);
+        string GetContentFromFile(string filePath);
+
     }
 }
