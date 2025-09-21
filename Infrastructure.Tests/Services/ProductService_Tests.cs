@@ -3,10 +3,10 @@ using Infrastructure.Models;
 using Infrastructure.Services;
 
 namespace Infrastructure.Tests.Services;
-// Edge case?
+// Ej testad: public void PopulateProductList(IEnumerable<ProductModel> productListFromFile)
 public class ProductService_Tests
 {
-    private readonly ProductService _productService;
+    private ProductService _productService;
 
     public ProductService_Tests()
     {
@@ -43,7 +43,7 @@ public class ProductService_Tests
 
     // Negative test case 
     [Fact]
-    public void AddProductToList_ShouldReturnError_WhenProductRequestIsNull()
+    public void AddProductToList_ShouldReturnFalseWithError_WhenProductRequestIsNull()
     {
         // ARRANGE
         ProductRequest? product = null;
@@ -64,7 +64,7 @@ public class ProductService_Tests
     [InlineData("  ", 10, "Name är null eller tomt")]
     [InlineData("banan", 0, "Price är 0 eller negativt")]  
     [InlineData("äpple", -10, "Price är 0 eller negativt")] 
-    public void AddProductToList_ShouldReturnError_WhenProductIsInvalid(string productName, decimal productPrice, string expectedError)
+    public void AddProductToList_ShouldReturnFalseWithError_WhenProductIsInvalid(string productName, decimal productPrice, string expectedError)
     {
         // ARRANGE
         var product = new ProductRequest
